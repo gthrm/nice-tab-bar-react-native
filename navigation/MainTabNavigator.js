@@ -16,24 +16,22 @@ const config = Platform.select({
 
 const HomeStack = createStackNavigator(
   {
-    Home: HomeScreen,
+    New: HomeScreen,
   },
   config
 );
 
 HomeStack.navigationOptions = ({ navigation }) => {
   return {
-    tabBarLabel: 'Home',
-    tabBarIcon: ({ focused }) => (
+    tabBarLabel: 'New',
+    tabBarIcon: ({ focused, tintColor }) => (
       <TabBarIcon
-        tabBarLabel='Home'
+        tintColor={tintColor}
+        getColor={getColor.bind(this)}
+        tabBarLabel='New'
         navigation={navigation}
         focused={focused}
-        name={
-          Platform.OS === 'ios'
-            ? `ios-information-circle${focused ? '' : '-outline'}`
-            : 'md-information-circle'
-        }
+        name={'clipboard'}
       />
     ),
   }
@@ -43,20 +41,22 @@ HomeStack.path = '';
 
 const LinksStack = createStackNavigator(
   {
-    Links: LinksScreen,
+    Old: LinksScreen,
   },
   config
 );
 
 LinksStack.navigationOptions = ({ navigation }) => {
   return {
-    tabBarLabel: 'Links',
-    tabBarIcon: ({ focused }) => (
+    tabBarLabel: 'Old',
+    tabBarIcon: ({ focused, tintColor }) => (
       <TabBarIcon
-        tabBarLabel='Links'
+        tintColor={tintColor}
+        getColor={getColor.bind(this)}
+        tabBarLabel='Old'
         navigation={navigation}
         focused={focused}
-        name={Platform.OS === 'ios' ? 'ios-link' : 'md-link'} />
+        name={'briefcase'} />
     ),
   }
 };
@@ -65,21 +65,22 @@ LinksStack.path = '';
 
 const SettingsStack = createStackNavigator(
   {
-    Settings: SettingsScreen,
+    User: SettingsScreen,
   },
   config
 );
 
 SettingsStack.navigationOptions = ({ navigation }) => {
   return {
-    tabBarLabel: 'Settings',
-    tabBarIcon: ({ focused }) => (
+    tabBarLabel: 'User',
+    tabBarIcon: ({ focused, tintColor }) => (
       <TabBarIcon
-        tabBarLabel='Settings'
+        tintColor={tintColor}
+        tabBarLabel='User'
         navigation={navigation}
         focused={focused}
         lolosh={focused ? 1 : 0}
-        name={Platform.OS === 'ios' ? 'ios-options' : 'md-options'}
+        name={'user'}
       />
     ),
   };
@@ -102,9 +103,9 @@ const tabNavigator = createBottomTabNavigator(
   //     }
   //   }
   {
-    Home: HomeStack,
-    Links: LinksStack,
-    Settings: SettingsStack
+    New: HomeStack,
+    Old: LinksStack,
+    User: SettingsStack
 
   }, {
     tabBarOptions: {
@@ -118,11 +119,36 @@ const tabNavigator = createBottomTabNavigator(
     },
 
     tabBarComponent: props => <TabBar
-      activeTabBackground={Colors.backgroundTabBar}
+      // activeColors={Colors.tabIconSelected}
+      activeColors={[Colors.tabIconSelected, Colors.tabIconSelectedOld, Colors.tabIconSelectedUser]}
+      // activeTabBackgrounds={Colors.backgroundTabBarUser}
+      activeTabBackgrounds={[Colors.backgroundTabBar, Colors.backgroundTabBarOld, Colors.backgroundTabBarUser]}
+      // activeTabBackground={}
       {...props}
     />,
   }
 );
+
+const getColor = (type) => {
+  console.log(type);
+
+  switch (type) {
+    case "New":
+      return Colors.tabIconSelected;
+    case "Old":
+      return Colors.tabIconSelectedOld;
+    case "User":
+      return Colors.tabIconSelectedUser;
+    case "NewBackground":
+      return Colors.backgroundTabBar;
+    case "OldBackground":
+      return Colors.backgroundTabBarOld;
+    case "UserBackground":
+      return Colors.backgroundTabBarUser;
+    default:
+      return Colors.backgroundTabBar;
+  }
+}
 
 tabNavigator.path = '';
 

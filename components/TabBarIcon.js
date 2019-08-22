@@ -1,20 +1,22 @@
 import React from 'react';
-import { Ionicons } from '@expo/vector-icons';
+import { Feather } from '@expo/vector-icons';
 import Colors from '../constants/Colors';
 
 class TabBarIcon extends React.Component {
 
   render() {
-    const { focused, name } = this.props
+    const { focused, name, tabBarLabel, tintColor } = this.props
     return (
-        <Ionicons
-          name={name}
-          size={26}
-          style={{ marginBottom: -3 }}
-          color={focused ? Colors.tabIconSelected : Colors.tabIconDefault}
-        />
+      <Feather
+        name={name}
+        size={26}
+        style={{ marginBottom: 0 }}
+        color={focused ? tintColor : "#222222"} //tabBarLabel === "New" ? Colors.backgroundTabBar : tabBarLabel === "Old" ? Colors.backgroundTabBarOld : tabBarLabel === "User" ? Colors.backgroundTabBarUser : Colors.tabIconDefault
+      />
     );
   }
+
+
 
 }
 
