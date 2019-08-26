@@ -45,7 +45,7 @@ class Draggable extends Component {
   }
 
   isDropArea(gesture) {
-    return gesture.moveY < 260;
+    return gesture.moveY < 200;
   }
 
   render() {

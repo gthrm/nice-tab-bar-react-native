@@ -27,7 +27,6 @@ HomeStack.navigationOptions = ({ navigation }) => {
     tabBarIcon: ({ focused, tintColor }) => (
       <TabBarIcon
         tintColor={tintColor}
-        getColor={getColor.bind(this)}
         tabBarLabel='New'
         navigation={navigation}
         focused={focused}
@@ -52,7 +51,6 @@ LinksStack.navigationOptions = ({ navigation }) => {
     tabBarIcon: ({ focused, tintColor }) => (
       <TabBarIcon
         tintColor={tintColor}
-        getColor={getColor.bind(this)}
         tabBarLabel='Old'
         navigation={navigation}
         focused={focused}
@@ -128,27 +126,6 @@ const tabNavigator = createBottomTabNavigator(
     />,
   }
 );
-
-const getColor = (type) => {
-  console.log(type);
-
-  switch (type) {
-    case "New":
-      return Colors.tabIconSelected;
-    case "Old":
-      return Colors.tabIconSelectedOld;
-    case "User":
-      return Colors.tabIconSelectedUser;
-    case "NewBackground":
-      return Colors.backgroundTabBar;
-    case "OldBackground":
-      return Colors.backgroundTabBarOld;
-    case "UserBackground":
-      return Colors.backgroundTabBarUser;
-    default:
-      return Colors.backgroundTabBar;
-  }
-}
 
 tabNavigator.path = '';
 
